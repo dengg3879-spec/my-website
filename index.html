@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>直了个播</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <input type="radio" name="page-switch" id="home-page" checked>
+    <input type="radio" name="page-switch" id="hottech-page">
+    <input type="radio" name="page-switch" id="orderinfo-page">
+
+    <!-- 主页 -->
+    <div id="main" class="page">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-text">直了个播</div>
+                <div class="logo-sub">zhiboo.com</div>
+            </div>
+            <div class="menu-icon" onclick="toggleSideMenu()">☰</div>
+        </div>
+        
+        <div class="announcement-bar">
+            <div class="announcement-content">
+                <span class="announcement-text">💡 本工作室技术源于实战项目沉淀，非市面信息差贩子。我们专注项目实操，欢迎各路实力团队、技术大佬前来交流合作！ 💡</span>
+            </div>
+        </div>
+        
+        <div class="banner" id="bannerContainer">
+            <div class="banner-container">
+                <div class="banner-slide">
+                    <div class="banner-image" style="background-image: url('https://img.cdn1.vip/i/68cc70487e0b4_1758228552.webp');"></div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-image" style="background-image: url('https://img.cdn1.vip/i/68cc862089490_1758234144.webp');"></div>
+                </div>
+            </div>
+            <div class="banner-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+        
+        <div class="category-icons">
+            <div class="category-item" onclick="document.getElementById('hottech-page').checked=true">
+                <div class="category-icon new-tag"></div>
+                <div class="category-text">热门技术</div>
+            </div>
+            <div class="category-item" onclick="document.getElementById('orderinfo-page').checked=true">
+                <div class="category-icon eye"></div>
+                <div class="category-text">下单须知</div>
+            </div>
+            <div class="category-item" onclick="showToast('合作页面开发中')">
+                <div class="category-icon person"></div>
+                <div class="category-text">与我合作</div>
+            </div>
+            <div class="category-item" onclick="showToast('工具页面开发中')">
+                <div class="category-icon chart"></div>
+                <div class="category-text">其他工具</div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <div class="product-grid" id="productGrid"></div>
+        </div>
+        
+        <div class="bottom-nav">
+            <label for="home-page" class="nav-item">
+                <div class="nav-text">首页</div>
+            </label>
+            <label for="hottech-page" class="nav-item">
+                <div class="nav-text">热门技术</div>
+            </label>
+            <label for="orderinfo-page" class="nav-item">
+                <div class="nav-text">下单须知</div>
+            </label>
+        </div>
+        <div class="home-indicator"></div>
+    </div>
+
+    <!-- 热门技术页面 -->
+    <div id="hottechPage" class="page">
+        <div class="secondary-header">
+            <label for="home-page" class="back-btn">←</label>
+            <h2 class="page-title">热门技术</h2>
+        </div>
+        <div class="secondary-content">
+            <div class="filter-tabs">
+                <button class="filter-tab active">全部</button>
+                <button class="filter-tab">直播技术</button>
+            </div>
+            <div class="product-grid" id="hottechGrid"></div>
+        </div>
+    </div>
+
+    <!-- 下单须知页面 -->
+    <div id="orderinfoPage" class="page">
+        <div class="secondary-header">
+            <label for="home-page" class="back-btn">←</label>
+            <h2 class="page-title">下单须知</h2>
+        </div>
+        <div class="secondary-content">
+            <div class="info-section">
+                <h3 class="info-title">❓ 常见问题</h3>
+                <div class="info-content">
+                    <div class="faq-item active">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>问：你们店的账号封号吗？</span>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>答：本店有白名单会员账号，卖出1000个号，最差就两三个出现封号。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item active">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>问：使用你们的账号有环境限制吗？</span>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>答：本店账号不限制任何使用环境，只要你能打开claude登录界面就行，不需要特殊环境配置。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item active">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>问：官方直连和中转区别是什么？</span>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>答：官方直连的回答效果好，速度快，质量高。中转的回答质量差，慢，还会卡。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>问：技术服务支持什么平台？</span>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>答：支持抖音、快手、小红书等主流直播平台，提供全方位技术解决方案。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>问：购买后多久可以使用？</span>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>答：付款后立即安排技术对接，一般15分钟内开始服务，复杂项目1小时内完成部署。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section">
+                <h3 class="info-title">📋 下单流程</h3>
+                <div class="info-content">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-text">点击需要的产品/技术，扫码付款</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-text">付款成功截图给我，我给你安排对接</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 产品详情页 -->
+    <div id="productDetail" class="product-detail">
+        <div class="detail-header">
+            <button class="back-btn" onclick="hideProductDetail()">←</button>
+            <h2>商品详情</h2>
+        </div>
+        <div class="detail-content">
+            <div class="detail-image" id="detailImage"></div>
+            <div class="detail-info">
+                <div class="detail-brand" id="detailBrand"></div>
+                <h1 class="detail-name" id="detailName"></h1>
+                <div class="detail-price" id="detailPrice"></div>
+                <div class="detail-sales" id="detailSales"></div>
+            </div>
+        </div>
+        
+        <div class="product-features">
+            <h3>产品特性</h3>
+            <div class="features-content">
+                <div class="feature-item"><span class="feature-icon">✓</span><span>技术稳定，成功率高</span></div>
+                <div class="feature-item"><span class="feature-icon">✓</span><span>一次购买，长期使用</span></div>
+                <div class="feature-item"><span class="feature-icon">✓</span><span>提供远程技术支持</span></div>
+                <div class="feature-item"><span class="feature-icon">✓</span><span>专业团队，售后保障</span></div>
+            </div>
+        </div>
+        
+        <div class="product-desc">
+            <h3>产品描述</h3>
+            <div class="desc-content" id="productDesc">
+                <p><strong>专业技术服务，解决您的核心需求</strong></p>
+                <p><strong>我们拥有丰富的实战经验，为您提供最优质的技术解决方案。</strong></p>
+                <p><strong>技术团队7x24小时在线支持，确保服务质量。</strong></p>
+            </div>
+        </div>
+        
+        <div class="purchase-flow">
+            <h3>购买流程</h3>
+            <div class="flow-steps">
+                <div class="step-progress">
+                    <div class="step active"><span>1</span>选择产品</div>
+                    <div class="step-line"></div>
+                    <div class="step"><span>2</span>付款下单</div>
+                    <div class="step-line"></div>
+                    <div class="step"><span>3</span>技术对接</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="product-actions">
+            <button class="action-btn btn-favorite">收藏</button>
+            <button class="action-btn btn-buy">立即购买</button>
+        </div>
+    </div>
+
+    <!-- 侧边菜单 -->
+    <div id="sideMenuOverlay" class="menu-overlay" onclick="closeSideMenu()"></div>
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <div class="menu-title">菜单</div>
+            <button class="menu-close" onclick="closeSideMenu()">✕</button>
+        </div>
+        <div class="menu-content">
+            <div class="menu-item">首页</div>
+            <div class="menu-item">热门技术</div>
+            <div class="menu-item">联系我们</div>
+            <div class="menu-item">其他工具</div>
+        </div>
+    </div>
+
+    <!-- 悬浮客服 -->
+    <div class="floating-service">
+        <div class="service-btn" onclick="toggleServicePanel()">
+            <div class="service-icon">
+                <img src="https://img.cdn1.vip/i/68d447095da3d_1758742281.png" alt="客服" style="width: 24px; height: 24px;">
+            </div>
+            <div class="service-text">客服</div>
+        </div>
+        <div class="service-panel" id="servicePanel">
+            <div class="panel-header">
+                <span>加我微信</span>
+                <span class="panel-close" onclick="closeServicePanel()">×</span>
+            </div>
+            <div class="panel-content">
+                <div class="service-option" onclick="contactWeChat('uisdc2024')">
+                    <img src="https://img.cdn1.vip/i/68d48741356ad_1758758721.png" alt="微信" style="width: 20px; height: 20px;">
+                    <div>
+                        <div class="option-title">主号客服</div>
+                        <div class="option-desc">uisdc2024</div>
+                    </div>
+                </div>
+                <div class="service-option" onclick="contactWeChat('uisdc2025')">
+                    <img src="https://img.cdn1.vip/i/68d48741356ad_1758758721.png" alt="微信" style="width: 20px; height: 20px;">
+                    <div>
+                        <div class="option-title">备用客服</div>
+                        <div class="option-desc">uisdc2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
